@@ -5,17 +5,37 @@ import Search from './Search';
 import IngredientList from './IngredientList';
 
 function Ingredients() {
-  const [userIngredients, setuserIngredients] = useState([]);
+  const [userIngredients, setUserIngredients] = useState([]);
 
   //We're going to pass this function to a component via prop
   const addIngredientHandler = (ingredient) => {
-    setuserIngredients((prevState) => [
-      ...prevState,
+    fetch(
+      'https://cors-anywhere.herokuapp.com/https://learn-react-hooks-6cb7d-default-rtdb.firebaseio.com/ingredients.json',
       {
-        id: Math.random().toString(),
-        ...ingredient,
-      },
-    ]);
+        method: 'POST',
+        body: JSON.stringify(ingredient),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+      .then((response) => {
+        //get response.body via response.json() --> returns a promise
+        return response.json();
+      })
+      .then((responseData) => {
+        //responseData will be the UUID from Firebase
+        console.log(responseData);
+        setUserIngredients((prevState) => [
+          ...prevState,
+          {
+            id: responseData.name,
+            ...ingredient,
+          },
+        ]);
+        console.log('WRITE TO FIREBASE SUCCESSFUL');
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
