@@ -11,6 +11,7 @@ function Ingredients() {
   // side-effects is some logic that does not finish in this render cycle or affects something outside of this jsx scope
   //useEffect is called after every render cycle
   useEffect(() => {
+    console.log('1st useEffect');
     fetch(
       'https://cors-anywhere.herokuapp.com/https://learn-react-hooks-6cb7d-default-rtdb.firebaseio.com/ingredients.json'
     )
@@ -33,7 +34,11 @@ function Ingredients() {
           alert('INGREDIENT DB IS EMPTY!');
         }
       });
-  }, []);
+  }, []); //empty array makes this like componentDidMount, will only render onces it's mounted
+
+  useEffect(() => {
+    console.log('2nd useEffect', userIngredients);
+  }, [userIngredients]); //render everytime state - userIngredient changes
 
   //We're going to pass this function to a component via prop
   const addIngredientHandler = (ingredient) => {
