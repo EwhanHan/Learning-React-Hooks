@@ -7,7 +7,7 @@ import IngredientList from './IngredientList';
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
 
-  const renderCount = useRef(0);
+  const renderCount = useRef(1);
   //useEffect to do side-effects
   // side-effects is some logic that does not finish in this render cycle or affects something outside of this jsx scope
   //useEffect is called after every render cycle
@@ -56,7 +56,7 @@ function Ingredients() {
 
   return (
     <div className='App'>
-      <IngredientForm onAddIngredient={filterIngredientsHandler} />
+      <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
         <Search onFilter={filterIngredientsHandler} />

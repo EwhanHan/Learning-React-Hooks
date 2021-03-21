@@ -6,7 +6,7 @@ import './Search.css';
 const Search = React.memo((props) => {
   const [enteredFilter, setEnteredFilter] = useState('');
 
-  const renderCount = useRef(0);
+  const renderCount = useRef(1);
 
   const { onFilter } = props;
 
