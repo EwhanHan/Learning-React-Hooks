@@ -8,10 +8,17 @@ const IngredientForm = React.memo((props) => {
     title: '',
     amount: '',
   };
+
+  //Alternative is add multiple states
+  // const [title, setTitle] = useState('')
+  //const [amount, setAmount] = useState(0)
   const [input, setInput] = useState(INITIAL_STATE);
 
+  //Use function reference from Ingredients.js to add ingredients
+  //Form state is passed upwards toward parent component(ingredients.js)
   const submitHandler = (event) => {
     event.preventDefault();
+    props.onAddIngredient(input);
   };
 
   const onChangeHandler = (event) => {
